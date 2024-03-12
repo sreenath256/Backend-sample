@@ -21,6 +21,7 @@ import {
   Table,
 } from "@/components/ui/table";
 import axiosClient from "@/utils/axios";
+import { logoutFunction } from "../LandingPage/LandingPage";
 
 const Investors = () => {
   const [investor, setInvestor] = useState([]);
@@ -55,10 +56,48 @@ const Investors = () => {
     <div>
       <div className="flex flex-col ">
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
-          <Link className="lg:hidden" href="#">
-            <Package2Icon className="h-6 w-6" />
-            <span className="sr-only">Home</span>
-          </Link>
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
+                size="icon"
+                variant="ghost"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-list"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                  />
+                </svg>
+                <span className="sr-only">Toggle user menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <Link to="/">
+
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              </Link>
+              <DropdownMenuSeparator />
+              <Link to="/users">
+                <DropdownMenuItem>Users</DropdownMenuItem>
+              </Link>
+              <Link to="/investors">
+                <DropdownMenuItem>Investors</DropdownMenuItem>
+              </Link>
+              <Link to="/startups">
+                <DropdownMenuItem>Startups</DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={logoutFunction}>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <div className="w-full flex-1">
             <form>
               <div className="relative">
@@ -72,36 +111,7 @@ const Investors = () => {
               </div>
             </form>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
-                size="icon"
-                variant="ghost"
-              >
-                <img
-                  alt="Avatar"
-                  className="rounded-full"
-                  height="32"
-                  src="/placeholder.svg"
-                  style={{
-                    aspectRatio: "32/32",
-                    objectFit: "cover",
-                  }}
-                  width="32"
-                />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 overflow-x-scroll">
           <div className="border shadow-sm rounded-lg">
