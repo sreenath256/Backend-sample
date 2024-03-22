@@ -23,7 +23,7 @@ import {
 import axiosClient from "@/utils/axios";
 import toast from "react-hot-toast";
 
-const Users = () => {
+const Subadmins = () => {
   const [user, setUser] = useState([]);
 
   const [searchResult, setSearchResult] = useState();
@@ -31,8 +31,8 @@ const Users = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const users = await axiosClient.get("user/getAll");
-      setUser(users.data);
+      const users = await axiosClient.get("subadmin/get-all");
+      setUser(users.data.data);
       console.log(user);
     };
     fetchData();
@@ -57,9 +57,9 @@ const Users = () => {
   };
 
   const handleRemoveUser = async(id,name)=>{
-   const res= confirm(`Are you sure want to delete the user : ${name}`)
+   const res= confirm(`Are you sure want to delete the subadmin : ${name}`)
     if(res===true){
-    const res =await axiosClient.post('user/remove-user',{userId:id})
+    const res =await axiosClient.post('/subadmin/remove-subadmin',{subAdminId:id})
       console.log(res);
       toast.success("Deleted success")
       setFlag(!flag);
@@ -91,7 +91,7 @@ const Users = () => {
                     d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
                   />
                 </svg>
-                <span className="sr-only">Toggle user menu</span>
+                <span className="sr-only">Toggle subadmin menu</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
@@ -107,6 +107,9 @@ const Users = () => {
               </Link>
               <Link to="/startups">
                 <DropdownMenuItem>Startups</DropdownMenuItem>
+              </Link>
+              <Link to="/subadmins">
+                <DropdownMenuItem>Subadmins</DropdownMenuItem>
               </Link>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={logoutFunction} >Logout</DropdownMenuItem>
@@ -127,6 +130,7 @@ const Users = () => {
           </div>
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+            <Button className="w-40" ><Link to='/add-subadmin'>Add subadmin</Link></Button>
           <div className="border shadow-sm rounded-lg">
             <Table>
               <TableHeader>
@@ -134,7 +138,7 @@ const Users = () => {
                   <TableHead className="w-[100px]">No</TableHead>
                   <TableHead>Name</TableHead>
                   <TableHead>Email</TableHead>
-                  <TableHead>User id</TableHead>
+                  <TableHead>Subadmin id</TableHead>
                   <TableHead>Created at</TableHead>
                   <TableHead className="w-[100px]">Restrict</TableHead>
                 </TableRow>
@@ -148,7 +152,7 @@ const Users = () => {
                             {index + 1}
                           </TableCell>
                           <TableCell className="font-medium">
-                            {data.firstname}
+                            {data.name}
                           </TableCell>
                           <TableCell className="font-medium">
                             {data.email}
@@ -160,7 +164,7 @@ const Users = () => {
                             {data.createdAt}
                           </TableCell>
                           <TableCell className="font-medium">
-                            <Button className="bg-red-500" onClick={()=>handleRemoveUser(data._id,data.firstname)}>Remove user</Button>
+                            <Button className="bg-red-500" onClick={()=>handleRemoveUser(data._id,data.name)}>Remove subadmin</Button>
                           </TableCell>
                         </TableRow>
                       );
@@ -172,7 +176,7 @@ const Users = () => {
                             {index + 1}
                           </TableCell>
                           <TableCell className="font-medium">
-                            {data.firstname}
+                            {data.name}
                           </TableCell>
                           <TableCell className="font-medium">
                             {data.email}
@@ -184,7 +188,7 @@ const Users = () => {
                             {data.createdAt}
                           </TableCell>
                           <TableCell className="font-medium">
-                            <Button className="bg-red-500" onClick={()=>handleRemoveUser(data._id,data.firstname)} >Remove user</Button>
+                            <Button className="bg-red-500" onClick={()=>handleRemoveUser(data._id,data.name)} >Remove subadmin</Button>
                           </TableCell>
                         </TableRow>
                       );
@@ -198,7 +202,7 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Subadmins;
 
 function SearchIcon(props) {
   return (

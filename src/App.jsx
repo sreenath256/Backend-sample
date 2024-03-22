@@ -6,6 +6,9 @@ import Investors from "./components/Investors/Investors";
 import Homescreen from "./Screens/Homescreen";
 import SignInScreen from "./Screens/SignInScreen";
 import LandingPage from "./components/LandingPage/LandingPage";
+import { Toaster } from "react-hot-toast";
+import Subadmins from "./components/Subadmins/Subadmins";
+import AddSubAdmin from "./components/AddSubAdmin/AddSubAdmin";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +26,7 @@ function App() {
   },[])
   return (
     <>
+    <Toaster />
         {
           isAdmin ?
      ( <div className="flex">
@@ -33,6 +37,8 @@ function App() {
             <Route  path="/users" element={<Users />} />
             <Route path="/investors" element={<Investors />} />
             <Route path="/startups" element={<Startup />} />
+            <Route path="/subadmins" element={<Subadmins />} />
+            <Route path="/add-subadmin" element={<AddSubAdmin />} />
           </Routes>
         </div>
       </div>):
